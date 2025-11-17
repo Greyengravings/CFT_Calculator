@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Wooden Box CFT Calculator — Full Box (Exact Excel Formulas)</title>
+  <style>
+    :root {
+      --brand-primary: #00769fcc;
+      --brand-secondary: #00769fcc;
+      --bg-light: #f5f8ff;
+      --card-light: #ffffff;
+      --text-light: #1a1a1a;
+
+      --bg-dark: #0f1115;
+      --card-dark: #1a1d24;
+      --text-dark: #e4e7ef;
+    }
+
+    html, body { height: 100%; }
+    body {
+      font-family: 'Segoe UI', Arial, sans-serif;
+      margin: 0; padding: 0;
+      background: var(--bg-light); color: var(--text-light);
+      transition: background 0.3s, color 0.3s;
+    }
+    html[data-theme="dark"] body { background: var(--bg-dark); color: var(--text-dark); }
+
+
+    .main-header {
+        width: 100%;
+        position: sticky;
+        top: 0;
+        z-index: 1000;
+    }
+
+    .top-bar {
+        background-color: #000;
+        color: #fff;
+        padding: 8px 50px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-size: 13px;
+    }
+
+    .contact-info span {
+        margin-right: 5px;
+    }
+
+    .contact-info .separator {
+        color: #888; 
+        margin: 0 10px;
+    }
+
+    .social-links a {
+        color: #fff;
+        text-decoration: none;
+        margin-left: 15px;
+        border: 1px solid #fff;
+        width: 18px; 
+        height: 18px;
+        display: inline-flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 10px;
+        border-radius: 3px;
+        font-weight: bold;
+    }
+
+    .main-nav-bar {
+        background-color:#007bff; 
+        padding: 10px 5px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        position: relative;
+        box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        height: 80px; 
+    }
+
+    .nav-menu {
+        list-style: none;
+        display: flex;
+        gap: 30px;
+    }
+
+    .nav-menu li a {
+        text-decoration: none;
+        color: #333;
+        font-size: 14px;
+        font-weight: bold;
+        padding: 10px 0;
+        display: block;
+        transition: color 0.3s;
+    }
+
+    .nav-menu li a:hover {
+        color: #00769fcc;
+    }
+
+
+    .logo {
+        position: absolute;
+        left: 50%;
+        transform: translateX(-50%);
+        top: 50%;
+        transform: translate(-50%, -50%); 
+    }
+
+    .logo-img {
+        height: 60px; 
+        width: auto;
+        display: block;
+    }
+
+    .container{max-width:1400px;margin:26px auto;padding:0 42px}
+    .card{background:var(--card-light);padding:24px;border-radius:16px;margin-bottom:20px;box-shadow:0 8px 28px rgba(10,20,60,0.06)}
+    html[data-theme="dark"] .card{background:var(--card-dark);box-shadow:0 6px 20px rgba(0,0,0,0.45)}
+    .logo-card{text-align:center;padding:16px;background-color: #00769fcc;}
+
+    .theme-toggle{position:fixed;top:20px;right:20px;z-index:1000;background:var(--brand-primary);color:white;border:none;padding:10px;border-radius:50%;cursor:pointer;font-size:18px;width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+    html[data-theme="dark"] .theme-toggle{background:var(--brand-secondary)}
+
+    .logout-btn{position:fixed;top:20px;right:80px;z-index:1000;background:var(--brand-primary);color:white;border:none;padding:10px;border-radius:50%;cursor:pointer;font-size:16px;width:40px;height:40px;display:flex;align-items:center;justify-content:center}
+    html[data-theme="dark"] .logout-btn{background:var(--brand-secondary)}
+
+    .form-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+    label{font-weight:600;display:block;margin-bottom:4px}
+    input[type=number]{width:90%;padding:10px;border-radius:12px;border:1.5px solid #c7d2ea;background:#fcfdff;font-size:20px}
+    html[data-theme="dark"] input[type=number]{background:#23272e;border-color:#3b4250;color:#e7eefc}
+    .full-width{grid-column:1/-1}
+    .actions{display:flex;gap:16px}
+    .btn-primary{flex:1;padding:14px;border-radius:12px;border:none;background:var(--brand-primary);color:white;font-weight:700;font-size:16px}
+    .btn-ghost{padding:14px;border-radius:12px;border:1px solid rgba(0,0,0,0.08);background:transparent;font-size:16px}
+
+    .result-card{padding:14px;border-radius:10px;background:#e9ffea;border-left:6px solid #27ae60}
+    html[data-theme="dark"] .result-card{background:#123018;border-left-color:#2ecc71;color:#c6ffd1}
+    #resultBox{margin-top:20px}
+    .small{font-size:13px;color:#6b7280}
+    html[data-theme="dark"] .small{color:#9aa3b2}
+
+    @media (max-width:820px){.form-grid{grid-template-columns:repeat(2,1fr)}}
+    @media (max-width:520px){.form-grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+
+<button class="theme-toggle" id="themeToggle">🌙</button>
+<button class="logout-btn" id="logoutBtn">⏻</button>
+
+<div class="container">
+  <div class="card logo-card">
+    <img src="logo.png" alt="Rami Logo" />
+  </div>
+
+  <div class="card">
+    <h2>Inputs</h2>
+    <div class="form-grid">
+      <div>
+        <label for="BOX_LENGTH">Box Length (in)</label>
+        <input id="BOX_LENGTH" type="number" placeholder="Enter length" />
+      </div>
+      <div>
+        <label for="BOX_BREADTH">Box Breadth (in)</label>
+        <input id="BOX_BREADTH" type="number" placeholder="Enter breadth" />
+      </div>
+      <div>
+        <label for="BOX_HEIGHT">Box Height (in)</label>
+        <input id="BOX_HEIGHT" type="number" placeholder="Enter height" />
+      </div>
+
+      <div>
+        <label for="RUNNER_LENGTH">Runner Length (in)</label>
+        <input id="RUNNER_LENGTH" type="number" value="3" />
+      </div>
+      <div>
+        <label for="RUNNER_BREADTH">Runner Height (in)</label>
+        <input id="RUNNER_BREADTH" type="number" value="2" />
+      </div>
+      <div>
+        <label for="PATYA_BREADTH">Patya Thickness (in)</label>
+        <input id="PATYA_BREADTH" type="number" value="0.75" step="0.01" />
+      </div>
+
+      <div>
+        <label for="RUNNER_QTY">Runner Quantity</label>
+        <input id="RUNNER_QTY" type="number" value="2" />
+      </div>
+      <div>
+        <label for="PATYA_LENGTH">Patya Length (in)</label>
+        <input id="PATYA_LENGTH" type="number" value="3" />
+      </div>
+      <div class="full-width small">Tip: Box length, breadth and height are empty so you must enter them; other values show defaults and can be edited by clicking.</div>
+    </div>
+  </div>
+
+  <div class="card">
+    <h2>Computed values</h2>
+    <div id="computed" class="form-grid">
+      <!-- computed values will appear only after clicking Calculate -->
+
+      <div><label for="B11">Side panel outer width</label><input id="B11" type="number"/></div>
+      <div><label for="C11">Side panel cut length</label><input id="C11" type="number"/></div>
+      <div><label for="D11">Vertical support count</label><input id="D11" type="number"/></div>
+
+      <div><label for="E11">Side panel material volume (ft³)</label><input id="E11" type="number"/></div>
+      <div><label for="F11">Side panel piece count</label><input id="F11" type="number"/></div>
+      <div><label for="G11">Side panel total CFT (ft³)</label><input id="G11" type="number"/></div>
+
+      <!-- row12 -->
+      <div><label for="B12">End panel height</label><input id="B12" type="number"/></div>
+      <div><label for="C12">End panel cut length</label><input id="C12" type="number"/></div>
+      <div><label for="D12">Fastener / small part count</label><input id="D12" type="number"/></div>
+
+      <div><label for="E12">End panel material volume (ft³)</label><input id="E12" type="number"/></div>
+      <div><label for="F12">End panel piece count</label><input id="F12" type="number"/></div>
+      <div><label for="G12">End panel total CFT (ft³)</label><input id="G12" type="number"/></div>
+
+      <!-- row13 -->
+      <div><label for="B13">Intermediate spacer width</label><input id="B13" type="number"/></div>
+      <div><label for="C13">Spacer cut length</label><input id="C13" type="number"/></div>
+      <div><label for="D13">Spacer count</label><input id="D13" type="number"/></div>
+
+      <div><label for="E13">Spacer material volume (ft³)</label><input id="E13" type="number"/></div>
+      <div><label for="F13">Spacer piece count</label><input id="F13" type="number"/></div>
+      <div><label for="G13">Spacer total CFT (ft³)</label><input id="G13" type="number"/></div>
+
+      <!-- row14 -->
+      <div><label for="B14">Top/bottom panel length</label><input id="B14" type="number"/></div>
+      <div><label for="C14">Top/bottom cut length</label><input id="C14" type="number"/></div>
+      <div><label for="D14">Top panel support count</label><input id="D14" type="number"/></div>
+
+      <div><label for="E14">Top/bottom material volume (ft³)</label><input id="E14" type="number"/></div>
+      <div><label for="F14">Top panel piece count</label><input id="F14" type="number"/></div>
+      <div><label for="G14">Top panel total CFT (ft³)</label><input id="G14" type="number"/></div>
+
+      <!-- row15 -->
+      <div><label for="B15">Runner + patya combined height</label><input id="B15" type="number"/></div>
+      <div><label for="C15">Runner cut length</label><input id="C15" type="number"/></div>
+      <div><label for="D15">Runner quantity</label><input id="D15" type="number"/></div>
+
+      <div><label for="E15">Runner material volume (ft³)</label><input id="E15" type="number"/></div>
+      <div><label for="F15">Runner piece count</label><input id="F15" type="number"/></div>
+      <div><label for="G15">Runner total CFT (ft³)</label><input id="G15" type="number"/></div>
+
+      <!-- row16 -->
+      <div><label for="B16">Base width including patya</label><input id="B16" type="number"/></div>
+      <div><label for="C16">Base cut length</label><input id="C16" type="number"/></div>
+      <div><label for="D16">Base runner count</label><input id="D16" type="number"/></div>
+
+      <div><label for="E16">Base material volume (ft³)</label><input id="E16" type="number"/></div>
+      <div><label for="F16">Base piece count</label><input id="F16" type="number"/></div>
+      <div><label for="G16">Base total CFT (ft³)</label><input id="G16" type="number"/></div>
+
+      <!-- row17 -->
+      <div><label for="B17">Side panel repeat width</label><input id="B17" type="number"/></div>
+      <div><label for="C17">Repeat cut length</label><input id="C17" type="number"/></div>
+      <div><label for="D17">Calculated repeat count</label><input id="D17" type="number"/></div>
+
+      <div><label for="E17">Repeat material volume (ft³)</label><input id="E17" type="number"/></div>
+      <div><label for="F17">Repeat piece count</label><input id="F17" type="number"/></div>
+      <div><label for="G17">Repeat total CFT (ft³)</label><input id="G17" type="number"/></div>
+
+      <!-- row18 -->
+      <div><label for="B18">Auxiliary sum</label><input id="B18" type="number"/></div>
+      <div><label for="C18">Auxiliary adjusted</label><input id="C18" type="number"/></div>
+      <div><label for="D18">Auxiliary count</label><input id="D18" type="number"/></div>
+
+      <div><label for="E18">Auxiliary material volume (ft³)</label><input id="E18" type="number"/></div>
+      <div><label for="F18">Auxiliary piece count</label><input id="F18" type="number"/></div>
+      <div><label for="G18">Auxiliary total CFT (ft³)</label><input id="G18" type="number"/></div>
+
+      <!-- row19 -->
+      <div><label for="B19">Final panel width</label><input id="B19" type="number"/></div>
+      <div><label for="C19">Final panel cut length</label><input id="C19" type="number"/></div>
+      <div><label for="D19">Final small part count</label><input id="D19" type="number"/></div>
+
+      <div><label for="E19">Final material volume (ft³)</label><input id="E19" type="number"/></div>
+      <div><label for="F19">Final piece count</label><input id="F19" type="number"/></div>
+      <div><label for="G19">Final total CFT (ft³)</label><input id="G19" type="number"/></div>
+
+    </div>
+  </div>
+
+  <div class="actions">
+    <button id="calcBtn" class="btn-primary">Calculate</button>
+    <button id="resetBtn" class="btn-primary">Reset to Excel defaults</button>
+  </div>
+
+  <div id="resultBox"></div>
+</div>
+
+<footer style="background-color: #00769fcc; color: white; text-align: center; padding: 10px; margin-top: 20px;">
+  <p>&copy; 2023 Rami Infra Tech. All rights reserved.</p>
+</footer>
+
+<script>
+(function(){
+  
+  function $id(id){return document.getElementById(id);}
+  function toNum(v, fallback=0){const n=parseFloat(v);return Number.isFinite(n)?n:fallback;}
+
+ 
+  if (localStorage.getItem('loggedIn') !== 'true') {
+    window.location.href = 'index.html';
+  } else {
+    $id('resultBox').innerHTML = '';
+    const computedInputs = document.querySelectorAll('#computed input');
+    computedInputs.forEach(input => input.value = '');
+    
+    window.scrollTo(0, 0);
+  }
+
+  const defaults = {
+    BOX_LENGTH:30, BOX_BREADTH:24, BOX_HEIGHT:20,
+    RUNNER_LENGTH:3, RUNNER_BREADTH:2, PATYA_BREADTH:0.75,
+    RUNNER_QTY:2, PATYA_LENGTH:3
+  };
+
+  
+  $id('themeToggle').addEventListener('click', function() {
+    const html = document.documentElement;
+    const currentTheme = html.getAttribute('data-theme');
+    const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
+    html.setAttribute('data-theme', newTheme);
+    $id('themeToggle').textContent = newTheme === 'dark' ? '☀️' : '🌙';
+    localStorage.setItem('theme', newTheme);
+  });
+
+  // load saved theme
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  document.documentElement.setAttribute('data-theme', savedTheme);
+  $id('themeToggle').textContent = savedTheme === 'dark' ? '☀️' : '🌙';
+
+  // logout
+  $id('logoutBtn').addEventListener('click', function() {
+    localStorage.removeItem('loggedIn');
+    localStorage.removeItem('theme');
+    window.location.href = 'index.html';
+  });
+
+  // reset
+  $id('resetBtn').addEventListener('click',function(){Object.keys(defaults).forEach(function(k){const el=$id(k);if(el)el.value=(k.startsWith('BOX_')?'' : defaults[k]);$id('resultBox').innerHTML='';localStorage.clear();});});
+
+  function calculate(){
+    // read inputs (matching sheet cell names)
+    const BOX_LENGTH = toNum($id('BOX_LENGTH').value, defaults.BOX_LENGTH);
+    const BOX_BREADTH = toNum($id('BOX_BREADTH').value, defaults.BOX_BREADTH);
+    const BOX_HEIGHT = toNum($id('BOX_HEIGHT').value, defaults.BOX_HEIGHT);
+    const RUNNER_LENGTH = toNum($id('RUNNER_LENGTH').value, defaults.RUNNER_LENGTH);
+    const RUNNER_BREADTH = toNum($id('RUNNER_BREADTH').value, defaults.RUNNER_BREADTH);
+    const PATYA_BREADTH = toNum($id('PATYA_BREADTH').value, defaults.PATYA_BREADTH);
+    const RUNNER_QTY = toNum($id('RUNNER_QTY').value, defaults.RUNNER_QTY);
+    const PATYA_LENGTH = toNum($id('PATYA_LENGTH').value, defaults.PATYA_LENGTH);
+
+    // Now implement Full Box sheet formulas exactly (as observed in the workbook)
+    // Row11
+    const B11 = BOX_BREADTH; // =D5
+    const C11 = B11 + 1; // =B11+1
+    const D11 = (BOX_HEIGHT / PATYA_LENGTH) * 2; // =(F5/D7)*2
+    const E11 = (3 * PATYA_BREADTH * C11 * D11) / 1728; // =(3*F6*C11*D11)/1728
+    const F11 = 13; // manual in sheet
+    const G11 = (3 * 0.75 * C11 * F11) / 1728; // =+(3*0.75*C11*F11)/1728
+
+    // Row12
+    const B12 = BOX_HEIGHT; // =F5
+    const C12 = B12 + 1; // =B12+1
+    const D12 = 2 * 2; // =2*2
+    const E12 = (3 * PATYA_BREADTH * C12 * D12) / 1728;
+    const F12 = 4; // manual
+    const G12 = (3 * 0.75 * C12 * F12) / 1728;
+
+    // Row13
+    const B13 = BOX_BREADTH - (2 * PATYA_LENGTH); // =D5-(2*D7)
+    const C13 = B13 + 1;
+    const D13 = 2 * 2;
+    const E13 = (3 * PATYA_BREADTH * C13 * D13) / 1728;
+    const F13 = 4;
+    const G13 = (3 * 0.75 * C13 * F13) / 1728;
+
+    // Row14
+    const B14 = BOX_LENGTH + (4 * PATYA_BREADTH); // =B5+(4*F6)
+    const C14 = B14 + 1;
+    const D14 = D11; // =D11
+    const E14 = (3 * PATYA_BREADTH * C14 * D14) / 1728;
+    const F14 = 13;
+    const G14 = (3 * 0.75 * C14 * F14) / 1728;
+
+    // Row15
+    const B15 = BOX_HEIGHT + RUNNER_BREADTH + (2 * PATYA_BREADTH); // =F5+D6+(2*F6)
+    const C15 = B15 + 1;
+    const D15 = RUNNER_QTY; // =B7
+    const E15 = (3 * PATYA_BREADTH * C15 * D15) / 1728;
+    const F15 = 4;
+    const G15 = (3 * 0.75 * C15 * F15) / 1728;
+
+    // Row16
+    const B16 = BOX_BREADTH + (2 * PATYA_BREADTH); // =D5+(2*F6)
+    const C16 = B16 + 1;
+    const D16 = RUNNER_QTY; // =B7
+    const E16 = (2.5 * 2 * C16 * D16) / 1728; // note sheet had (2.5*2*C16*D16)/1728
+    const F16 = 2;
+    const G16 = (3 * 2 * C16 * F16) / 1728; // =(3*2*C16*F16)/1728
+
+    // Row17
+    const B17 = B14; // =B14
+    const C17 = B17 + 1;
+    const D17 = B16 / PATYA_LENGTH; // =B16/D7
+    const E17 = (3 * PATYA_BREADTH * C17 * D17) / 1728;
+    const F17 = 9;
+    const G17 = (3 * 0.75 * C17 * F17) / 1728;
+
+    // Row18
+    // B18 in sheet is =SUM(A12) which is a label; Excel likely results 0 — we'll replicate that behavior
+    const B18 = 0; // =SUM(A12) (A12 is text label; sum -> 0)
+    const C18 = B18 + 1;
+    const D18 = B16 / PATYA_LENGTH; // =B16/D7
+    const E18 = (3 * PATYA_BREADTH * C18 * D18) / 1728;
+    const F18 = 9;
+    const G18 = (3 * 0.75 * C18 * F18) / 1728;
+
+    // Row19
+    const B19 = B16; // =B16
+    const C19 = B19 + 1;
+    const D19 = 2;
+    const E19 = (3 * PATYA_BREADTH * C19 * D19) / 1728;
+    const F19 = 2;
+    const G19 = (3 * 0.75 * C19 * F19) / 1728;
+
+    // Totals per sheet
+    const SUM_E11_E19 = E11 + E12 + E13 + E14 + E15 + E16 + E17 + E18 + E19; // =SUM(E11:E19)
+    const SUM_G11_G19 = G11 + G12 + G13 + G14 + G15 + G16 + G17 + G18 + G19; // =SUM(G11:G19)
+
+    const B23 = SUM_E11_E19; // '=E20' in sheet points to sum, we map to SUM_E11_E19
+    const B25 = B23 * 0.05; // 5% wastage =B23*5%
+    const B24 = B23 + B25; // =+B23+B25 (TOTAL CFT)
+
+    // Populate computed fields (match cell ids)
+    const set = (id,val)=>{ const el=$id(id); if(el){ const display = Number.isFinite(val)?(Math.round(val*10000)/10000):val; el.value = display; el.placeholder = display; el.setAttribute('data-default', String(display)); } };
+
+    set('B11',B11); set('C11',C11); set('D11',D11); set('E11',E11); set('F11',F11); set('G11',G11);
+    set('B12',B12); set('C12',C12); set('D12',D12); set('E12',E12); set('F12',F12); set('G12',G12);
+    set('B13',B13); set('C13',C13); set('D13',D13); set('E13',E13); set('F13',F13); set('G13',G13);
+    set('B14',B14); set('C14',C14); set('D14',D14); set('E14',E14); set('F14',F14); set('G14',G14);
+    set('B15',B15); set('C15',C15); set('D15',D15); set('E15',E15); set('F15',F15); set('G15',G15);
+    set('B16',B16); set('C16',C16); set('D16',D16); set('E16',E16); set('F16',F16); set('G16',G16);
+    set('B17',B17); set('C17',C17); set('D17',D17); set('E17',E17); set('F17',F17); set('G17',G17);
+    set('B18',B18); set('C18',C18); set('D18',D18); set('E18',E18); set('F18',F18); set('G18',G18);
+    set('B19',B19); set('C19',C19); set('D19',D19); set('E19',E19); set('F19',F19); set('G19',G19);
+
+    // Show totals in result box using same names as sheet
+    const out = [];
+    out.push('<div class="result-card">');
+    out.push('<strong>DETAILED TOTAL :</strong> ' + SUM_E11_E19.toFixed(6) + ' ft³');
+    out.push('<br><strong>DETAILS TOTAL (WITH ROUND OFF):</strong> ' + SUM_G11_G19.toFixed(6) + ' ft³');
+    out.push('<hr style="margin:10px 0;border:none;border-top:1px solid rgba(0,0,0,0.06)">');
+    out.push('<strong>TOTAL CFT :</strong> ' + B24.toFixed(6) + ' ft³');
+    out.push('<br><strong>TOTAL CFT 5%:</strong> ' + (B24 + B25).toFixed(6) + ' ft³');
+    out.push('<br><strong>5% WASTAGE :</strong> ' + B25.toFixed(6) + ' ft³');
+    out.push('<hr style="margin:10px 0;border:none;border-top:1px solid rgba(0,0,0,0.06)">');
+    out.push('<div class="small"><strong>Inputs used (sheet names):</strong></div>');
+    out.push('<div class="small">BOX_LENGTH (B5): '+BOX_LENGTH+'</div>');
+    out.push('<div class="small">BOX_BREADTH (D5): '+BOX_BREADTH+'</div>');
+    out.push('<div class="small">BOX_HEIGHT (F5): '+BOX_HEIGHT+'</div>');
+    out.push('<div class="small">RUNNER_LENGTH (B6): '+RUNNER_LENGTH+'</div>');
+    out.push('<div class="small">RUNNER_BREADTH (D6): '+RUNNER_BREADTH+'</div>');
+    out.push('<div class="small">PATYA_BREADTH (F6): '+PATYA_BREADTH+'</div>');
+    out.push('<div class="small">RUNNER_QTY (B7): '+RUNNER_QTY+'</div>');
+    out.push('<div class="small">PATYA_LENGTH (D7): '+PATYA_LENGTH+'</div>');
+    out.push('</div>');
+
+    $id('resultBox').innerHTML = out.join('\n');
+    $id('resultBox').scrollIntoView({behavior:'smooth', block:'start'});
+  }
+
+  $id('calcBtn').addEventListener('click', calculate);
+  window.calculate = calculate; // expose for tests
+
+  // auto-calc on load
+  window.addEventListener('load', () => {
+    // scroll to top on refresh
+    window.scrollTo(0, 0);
+    // clear result box on load to prevent scrolling to previous results
+    $id('resultBox').innerHTML = '';
+    // clear computed values on load
+    const computedInputs = document.querySelectorAll('#computed input');
+    computedInputs.forEach(input => input.value = '');
+    // no auto-calc to prevent showing old calculations
+  });
+
+  // scroll to top on any page show
+  window.addEventListener('pageshow', () => {
+    window.scrollTo(0, 0);
+  });
+
+  // scroll to top on refresh
+  window.addEventListener('beforeunload', () => {
+    window.scrollTo(0, 0);
+  });
+
+
+})();
+</script>
+</body>
+</html>
