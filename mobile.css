@@ -1,0 +1,390 @@
+:root {
+  --brand-primary: #00769fcc;
+  --brand-secondary: #00769fcc;
+  --bg-dark: #0f1115;
+  --card-light: #ffffff;
+  --text-light: #1a1a1a;
+  --bg-dark: #0f1115;
+  --card-dark: #1a1d24;
+  --text-dark: #e4e7ef;
+}
+
+html, body {
+  height: 100%;
+  font-family: 'Segoe UI', Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+  background: var(--bg-light);
+  color: var(--text-light);
+  transition: background 0.3s, color 0.3s;
+}
+
+html[data-theme="dark"] body {
+  background: var(--bg-dark);
+  color: var(--text-dark);
+}
+
+html[data-theme="dark"] .card {
+  background: var(--card-dark);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+
+html[data-theme="dark"] .logo-card {
+  background-color: #00769fcc;
+}
+
+html[data-theme="dark"] .settings-btn {
+  background: var(--brand-secondary);
+}
+
+html[data-theme="dark"] input[type=number] {
+  background: #23272e;
+  border-color: #3b4250;
+  color: #e7eefc;
+}
+
+html[data-theme="dark"] .result-card {
+  background: #123018;
+  border-left-color: #2ecc71;
+  color: #c6ffd1;
+}
+
+html[data-theme="dark"] .small {
+  color: #9aa3b2;
+}
+
+html[data-theme="dark"] .top-bar {
+  background-color: #000;
+}
+
+html[data-theme="dark"] .main-nav-bar {
+  background-color: #007bff;
+}
+
+html[data-theme="dark"] footer {
+  background-color: #00769fcc;
+}
+
+html[data-theme="dark"] .nav-menu li a {
+  color: var(--text-dark);
+}
+
+html[data-theme="dark"] .theme-toggle {
+  background: var(--card-dark);
+  color: var(--text-dark);
+  border-color: var(--text-dark);
+}
+
+html[data-theme="dark"] .btn-ghost {
+  border-color: rgba(255, 255, 255, 0.08);
+}
+
+html[data-theme="dark"] .contact-info .separator {
+  color: #aaa;
+}
+
+h2 {
+  text-transform: uppercase;
+  text-align: center;
+  margin-top: 0;
+}
+
+.main-header {
+  width: 100%;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+}
+
+.top-bar {
+  background-color: #000;
+  color: #fff;
+  padding: 8px 10px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+}
+
+.contact-info span {
+  margin-right: 5px;
+}
+
+.contact-info .separator {
+  color: #888;
+  margin: 0 10px;
+}
+
+.social-links a {
+  color: #fff;
+  text-decoration: none;
+  margin-left: 10px;
+  border: 1px solid #fff;
+  width: 16px;
+  height: 16px;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 8px;
+  border-radius: 3px;
+  font-weight: bold;
+}
+
+.main-nav-bar {
+  background-color: #00769fcc;
+  padding: 8px 5px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  height: 60px;
+}
+
+.nav-menu {
+  list-style: none;
+  display: flex;
+  gap: 20px;
+}
+
+.nav-menu li a {
+  text-decoration: none;
+  color: #333;
+  font-size: 12px;
+  font-weight: bold;
+  padding: 8px 0;
+  display: block;
+  transition: color 0.3s;
+}
+
+.nav-menu li a:hover {
+  color: #00769fcc;
+}
+
+.logo {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  top: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.logo-img {
+  height: 40px;
+  width: auto;
+  display: block;
+}
+
+.container {
+  max-width: 95%;
+  margin: 16px auto;
+  padding: 0 16px;
+}
+
+.card {
+  background: var(--card-light);
+  padding: 20px;
+  border-radius: 16px;
+  margin-bottom: 20px;
+  box-shadow: 0 8px 28px rgba(10,20,60,0.06);
+  border: 2px solid #00769fcc;
+}
+
+html[data-theme="dark"] .card {
+  background: var(--card-dark);
+  box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+
+.logo-card {
+  text-align: center;
+  padding: 16px;
+  background-color: #00769fcc;
+}
+
+html[data-theme="dark"] .logo-card {
+  background-color: #00769fcc;
+}
+
+.settings-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 1000;
+  background: #000;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 3px solid #00769fcc;
+}
+
+html[data-theme="dark"] .settings-btn {
+  background: #000;
+}
+
+.settings-btn img {
+  width: 18px;
+  height: 18px;
+}
+
+.theme-toggle {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 999;
+  background: white;
+  color: black;
+  border: 1px solid #ccc;
+  padding: 8px 12px;
+  border-radius: 20px;
+  cursor: pointer;
+  font-size: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+
+body.open .theme-toggle {
+  opacity: 1;
+  pointer-events: auto;
+  right: 60px;
+}
+
+.logout-btn {
+  position: fixed;
+  top: 15px;
+  right: 15px;
+  z-index: 999;
+  background: red;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 50%;
+  cursor: pointer;
+  font-size: 14px;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s;
+}
+
+.logout-btn img {
+  width: 18px;
+  height: 18px;
+}
+
+body.open .logout-btn {
+  opacity: 1;
+  pointer-events: auto;
+  right: 160px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 18px;
+}
+
+label {
+  font-weight: 600;
+  display: block;
+  margin-bottom: 6px;
+  font-size: 15px;
+}
+
+input[type=number] {
+  width: 90%;
+  padding: 10px;
+  border-radius: 12px;
+  border: 1.5px solid #c7d2ea;
+  background: #fcfdff;
+  font-size: 15px;
+}
+
+input[type=number]:focus {
+  outline: 2px solid #00769fcc;
+}
+
+html[data-theme="dark"] input[type=number] {
+  background: #23272e;
+  border-color: #3b4250;
+}
+
+.full-width {
+  grid-column: 1/-1;
+}
+
+.actions {
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  margin-bottom: 20px;
+}
+
+.btn-primary {
+  flex: 1;
+  padding: 14px;
+  border-radius: 12px;
+  border: none;
+  background: var(--brand-primary);
+  color: white;
+  font-weight: 700;
+  font-size: 16px;
+}
+
+.btn-ghost {
+  padding: 14px;
+  border-radius: 12px;
+  border: 1px solid rgba(0,0,0,0.08);
+  background: transparent;
+  font-size: 16px;
+}
+
+.result-card {
+  padding: 16px;
+  border-radius: 10px;
+  background: #e9ffea;
+  border-left: 6px solid #27ae60;
+}
+
+html[data-theme="dark"] .result-card {
+  background: #123018;
+  border-left-color: #2ecc71;
+  color: #c6ffd1;
+}
+
+#resultBox {
+  margin-top: 20px;
+}
+
+.small {
+  font-size: 12px;
+  color: #6b7280;
+}
+
+html[data-theme="dark"] .small {
+  color: #9aa3b2;
+}
+
+footer {
+  background-color: #00769fcc;
+  color: white;
+  text-align: center;
+  padding: 12px;
+  margin-top: 20px;
+  font-size: 14px;
+}
